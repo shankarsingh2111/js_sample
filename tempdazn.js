@@ -87,31 +87,45 @@ Promise 1!
 
 
 
-let array = [0,1,0,0,0,3,4,5,0,0,1,19,0,0,0,1,12,2,0];
+// let array = [0,1,0,0,0,3,4,5,0,0,1,19,0,0,0,1,12,2,0];
 // let array = [0,0,1,0,2,0];
-let plastZero = -1;
+// let plastZero = -1;
 
-for(let i = 0; i < array.length-1; i++){
+// for(let i = 0; i < array.length-1; i++){
 
-    if(array[i] !== 0 && array[i+1] === 0){
-        for(let j = i+1; j > plastZero+1; j--){
-            swap(array, j, j-1);
-        }
-        // swap(array, i, i+1);
-    }
-    if(array[i] === 0){
-        plastZero = i;
-    }
-}
+//     if(array[i] !== 0 && array[i+1] === 0){
+//         for(let j = i+1; j > plastZero+1; j--){
+//             swap(array, j, j-1);
+//         }
+//         // swap(array, i, i+1);
+//     }
+//     if(array[i] === 0){
+//         plastZero = i;
+//     }
+// }
 
-function swap(array, i, j){
-    let temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-}
+// function swap(array, i, j){
+//     let temp = array[i];
+//     array[i] = array[j];
+//     array[j] = temp;
+// }
+
+// console.log('array = '+JSON.stringify(array));
+// let value = array.splice(array.length-1, 1);
+// console.log('value = '+JSON.stringify(value));
+// array.unshift(0);
+// console.log('array = '+JSON.stringify(array));
 
 
-console.log('array = '+JSON.stringify(array));
+// for(let i = 0; i < array.length; i++){
+//     if(array[i] == 0){
+//         array.splice(i, 1);
+//         array.unshift(0);
+//     }
+// }
+
+
+// console.log('array = '+JSON.stringify(array));
 
 
 

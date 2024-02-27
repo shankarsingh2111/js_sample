@@ -17,7 +17,8 @@ COPY app.js app.js
 RUN npm install
 
 
-ENTRYPOINT ["sh", "-c", "pm2 start -i 2 app.js && pm2 logs"]
+ENTRYPOINT ["npm", "run", "pm2Start"]
+# ENTRYPOINT ["sh", "-c", "pm2 start -i 2 app.js && pm2 logs"]
 # ENTRYPOINT ["pm2", "start", "-i", "2", "app.js", "&&", "pm2", "logs"]
 #, "&&", "ls", "&&", ] 
 # ENTRYPOINT ["pm2-runtime", "start", "-i", "2", "app.js"]

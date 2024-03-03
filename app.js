@@ -2,15 +2,23 @@ const express = require('express');
 const moment = require('moment');
 const request = require('request');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const app = express();
+
+const DATA_VOLUME_BASE = '/data';
+
+const currDate = moment().local().format('YYYY-MM-DD');
+const logFilePath = '/logs/';
+const logFile = 'log_' + currDate + '.txt';
 
 app.use(bodyParser.json({limit: '10mb'}));
 
 const PORT = process.env.PORT || 8012;
 
 app.get('/', (req, res) => {
+    let ts = moment().local().format('YYYY-MM-DD h:mm a');
     console.log("Got hit "+moment().local().format('YYYY-MM-DD h:mm a'));
-    requestToExternalNetwork(req, res);
+    requestToExternalNetwork(req, res, ts);
 });
 
 app.get('/ping', (req, res) => {
@@ -30,8 +38,9 @@ app.listen(PORT, () => {
 
 
 
-async function requestToExternalNetwork(req, res){
+async function requestToExternalNetwork(req, res, ts){
     const url = 'https://official-joke-api.appspot.com/random_joke';
+    const list = 'https://official-joke-api.appspot.com/random_ten';
     request(url, (error, response, body) => {
         console.log('error = '+JSON.stringify(error));
         console.log('response = '+JSON.stringify(response));
@@ -40,10 +49,21 @@ async function requestToExternalNetwork(req, res){
             body = JSON.parse(body);
         }
         const message = body.setup + " => " + body.punchline;
+        // let path = DATA_VOLUME_BASE + logFilePath;
+        let path = __dirname + '/..'+DATA_VOLUME_BASE + logFilePath;
+        console.log('path = '+path);
 
-        res.json({
-            message : message+" "+moment().local().format('YYYY-MM-DD h:mm a'),
+        fs.promises.mkdir(path, { recursive: true }).catch(console.error).then(()=>{
+            fs.appendFile(path+logFile, ts+' :::: '+message+'\n', (error) => {
+                if(error){
+                    console.log('file write error = '+JSON.stringify(error));
+                }
+                res.json({
+                    message : message+" "+moment().local().format('YYYY-MM-DD h:mm a'),
+                });
+            });
         });
+
     });
 }
 

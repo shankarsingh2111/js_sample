@@ -2,9 +2,12 @@
 //     setTimeout(() => console.log(i), 1);
 //   }
   
-//   for (let i = 0; i < 3; i++) {
-//     setTimeout(() => console.log(i), 1);
+//   for (let j = 0; j < 3; j++) {
+//     setTimeout(() => console.log(j), 1);
+//    console.log("inside:", j);
 //   }
+
+//   console.log('i = '+JSON.stringify(i));
 
 
 
@@ -22,7 +25,7 @@
 
 
 // const foo = () => console.log('First');
-// const bar = () => setTimeout(() => console.log('Second'));
+// const bar = () => setTimeout(() => console.log('Second'), 1000);
 // const baz = () => console.log('Third');
 
 // bar();
@@ -38,27 +41,69 @@
 // */
 
 
+const fs = require('fs');
+
+  const myPromise = Promise.resolve(Promise.resolve('Promise'));
+  const myPromise2 = Promise.resolve(Promise.resolve('Promise2'));
+  
+  fs.readFile(__dirname + '/.gitignore', (error, result)=>{
+    console.log("fs.readfile");
+  });
+
+  myPromise2.then(result => {
+    console.log(result);
+
+    myPromise.then(result => {
+      console.log("second",result);
+    });
+  });
+
+  setImmediate(()=>{
+    console.log("setImmediate");
+  });
+
+  setTimeout(()=>{
+    console.log("setTimeout");
+  });
+
+  var count = 0;
+  var intervalId = setInterval(()=>{
+    console.log("setInterval");
+    if(count >= 0){
+      clearInterval(intervalId);
+    }
+    count++;
+  }, 0);
+  console.log('intervalId = '+intervalId);
+
+  myPromise.then(result => {
+    console.log(result);
+  });
+  
+
+  process.nextTick(()=>{
+    console.log("nextTick");
+  });
+
+  console.log("outer");
 
 
 
-// const myPromise = Promise.resolve(Promise.resolve('Promise'));
-
-// function funcOne() {
-//   setTimeout(() => console.log('Timeout 1!'), 0); //c1
-//   myPromise.then(res => res).then(res => console.log(`${res} 1!`)); //c2
-//   console.log('Last line 1!');
-// }
-
-// async function funcTwo() {
-//   const res = await myPromise;
-//   console.log(`${res} 2!`)
-//   setTimeout(() => console.log('Timeout 2!'), 0);
-//   console.log('Last line 2!');
-// }
-
-// funcOne();
-// funcTwo();
-
+  function funcOne() {
+    setTimeout(() => console.log('Timeout 1!'), 0); //c1
+    myPromise.then(res => res).then(res => console.log(`${res} 1!`)); //c2
+    console.log('Last line 1!');
+  }
+  
+  async function funcTwo() {
+    const res = await myPromise;
+    console.log(`${res} 2!`)
+    setTimeout(() => console.log('Timeout 2!'), 0);
+    console.log('Last line 2!');
+  }
+  
+  // funcOne();
+  // funcTwo();  
 
 /*
 

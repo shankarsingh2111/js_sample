@@ -1,3 +1,35 @@
+function transpose(matrix) {
+    let transp = [];
+    let length = matrix.length;
+    let breadth = matrix[0].length;
+
+    let array = [];
+    let i = 0, j = 0;
+    while(array.length < (length*breadth)){
+        
+        if(!transp[j]){
+            transp[j] = [];
+        }
+        if(i < length){
+            transp[j][i] = matrix[i][j];
+            i++;
+        }
+        else {
+            i = 0;
+            j++;
+        }
+    }
+    
+    console.log(transp);
+    return transp;
+    
+};
+
+
+
+
+
+
 // List of numbers integers
 // []
 //sub list of largest sum

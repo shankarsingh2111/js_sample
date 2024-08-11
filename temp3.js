@@ -159,3 +159,19 @@ if(carry){
 }
 
 console.log('c =',JSON.stringify(c));
+
+
+
+
+
+
+
+var arr1 = [1,2,3];
+var arr2 = [2,4];
+
+var map1 = {};
+for(let i = 0; i < arr1.length; i++){
+    map1[arr[i]] = 1;
+}
+
+for(let i=0; i<arr2.length; )
